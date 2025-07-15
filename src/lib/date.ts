@@ -10,6 +10,7 @@ export function formatDateTime(date: any, options = {}) {
         timeZone: 'Asia/Kolkata'
     };
 
+    // @ts-ignore
     const formatter = new Intl.DateTimeFormat('en-IN', {...defaultOptions, ...options});
     return formatter.format(new Date(date));
 }
