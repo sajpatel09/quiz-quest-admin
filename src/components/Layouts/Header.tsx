@@ -4,6 +4,7 @@ import {Link, useLocation} from 'react-router-dom';
 import {IRootState} from '../../store';
 import {toggleRTL, toggleSidebar, toggleTheme} from '../../store/themeConfigSlice';
 import Dropdown from '../Dropdown';
+import {logout} from "../../store/authSlice";
 
 const Header = () => {
     const location = useLocation();
@@ -108,6 +109,10 @@ const Header = () => {
         }
     };
     const [flag, setFlag] = useState(themeConfig.locale);
+
+    const onSignOutClick = () => {
+        dispatch(logout());
+    }
 
     return (
         <header className={themeConfig.semidark && themeConfig.menu === 'horizontal' ? 'dark' : ''}>
@@ -307,7 +312,7 @@ const Header = () => {
                                         </Link>
                                     </li>
                                     <li className="border-t border-white-light dark:border-white-light/10">
-                                        <Link to="/auth/boxed-signin" className="text-danger !py-3">
+                                        <Link to="/" onClick={onSignOutClick} className="text-danger !py-3">
                                             <svg className="ltr:mr-2 rtl:ml-2 rotate-90 shrink-0" width="18" height="18"
                                                  viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path
