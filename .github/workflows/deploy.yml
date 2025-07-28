@@ -9,8 +9,17 @@ jobs:
   deploy:
     runs-on: self-hosted
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      # Step 1: Ensure correct file permissions for the runner user
+      - name: Set File Permissions
+        working-directory: /var/www/html/quiz-quest-admin
+        run: sudo chown -R github-runner:github-runner .
+
+      # Step 2: Pull the latest code into your project folder
+      - name: Pull Latest Changes
+        working-directory: /var/www/html/quiz-quest-admin
+        run:  |
+          git fetch --all
+          git reset --hard origin/main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
